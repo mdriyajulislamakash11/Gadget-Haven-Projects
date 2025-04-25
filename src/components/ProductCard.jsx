@@ -1,14 +1,33 @@
-import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useLoaderData, useParams } from "react-router-dom";
+import Card from "./Card";
 
 const ProductCard = () => {
-    const data = useLoaderData()
-    console.log(data)
-    return (
-        <div>
-            
-        </div>
-    );
+  const { categories } = useParams();
+  const data = useLoaderData();
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+   if(categories){
+    const productFilter = [...data].filter(
+        (item) => item.category === categories
+      );
+      setProducts(productFilter)
+   }else{
+
+       setProducts(data);
+   }
+  }, [categories, data]);
+
+  return (
+    <div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {products.map((product) => (
+          <Card key={product.id} product={product} />
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default ProductCard;

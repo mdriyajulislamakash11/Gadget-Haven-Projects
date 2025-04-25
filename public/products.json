@@ -219,7 +219,7 @@
         "product_title": "Portable Power Bank",
         "product_image": "https://i.ibb.co/dGgyyh0/Portable-Power-Bank.jpg",
         "category": "Accessories",
-        "price": 49,
+        "": 49,
         "description": "Compact and lightweight power bank with fast charging support for mobile devices.",
         "specification": [
             "10,000mAh capacity",

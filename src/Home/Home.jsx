@@ -16,7 +16,7 @@ const Home = () => {
             <h1 className='text-4xl font-semibold text-center my-12'>Explore Cutting-Edge Gadgets</h1>
 
             {/* daynamic routes */}
-            <div className='flex justify-between border-2'>
+            <div className='flex justify-between border-'>
                 {/* Category button */}
                 <div>
                     <Categories categories={categories} />
