@@ -8,11 +8,14 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("cart");
   const [product, setProduct] = useState([]);
   const[productList, setProductList] = useState([])
+  const [totalCost, setTotalCost] = useState(0)
+  const [wishList, setWishList] = useState()
   const data = useLoaderData();
+
 
   useEffect(() => {
     const getProductLS = getProductStoreCard();
-    const storeProductInt = getProductLS.map((id = parseInt(id)));
+    const storeProductInt = getProductLS.map((id => parseInt(id)));
     const filterBYProduct = data.filter((item) =>
       storeProductInt.includes(product.product_id)
     );
@@ -24,6 +27,13 @@ const Dashboard = () => {
   //   const getWisList = get
   // }, [])
 
+  const sortByPrice = () => {
+
+  }
+
+  const  handlePurchase = () => {
+
+  }
   return (
     <div className="py-8">
       <div className="text-center bg-[#9538E2]">
