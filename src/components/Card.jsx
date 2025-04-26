@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Card = ({ product }) => {
   const {
@@ -31,9 +32,9 @@ const Card = ({ product }) => {
           <span className="text-lg font-bold text-green-600">${price}</span>
           <span
             className={`text-sm font-medium px-2 py-1 rounded-full ${
-              availability === 'In Stock'
-                ? 'bg-green-100 text-green-700'
-                : 'bg-red-100 text-red-700'
+              availability === "In Stock"
+                ? "bg-green-100 text-green-700"
+                : "bg-red-100 text-red-700"
             }`}
           >
             {availability}
@@ -45,9 +46,12 @@ const Card = ({ product }) => {
           <span className="text-gray-600 text-sm ml-2">({rating})</span>
         </div>
 
-        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-300 font-medium">
+        <Link
+          to={`/product/${product_id}`}
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-300 font-medium"
+        >
           View Details
-        </button>
+        </Link>
       </div>
     </div>
   );

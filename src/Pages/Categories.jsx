@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, } from "react-router-dom";
 
 const Categories = ({ categories }) => {
   return (
@@ -15,7 +15,7 @@ const Categories = ({ categories }) => {
               }`
             }
           >
-            All
+            All Products
           </NavLink>
         </div>
 
