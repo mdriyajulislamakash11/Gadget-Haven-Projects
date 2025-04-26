@@ -31,7 +31,7 @@ const router = createBrowserRouter([
                 ]
             },
             {
-                path: "statistics",
+                path: "/statistics",
                 element: <Statistics />
             },
             {
