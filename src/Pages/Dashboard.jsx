@@ -6,34 +6,50 @@ import Cart from "./Cart";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("cart");
-  const [product, setProduct] = useState([]);
-  const[productList, setProductList] = useState([])
-  const [totalCost, setTotalCost] = useState(0)
-  const [wishList, setWishList] = useState()
-  const data = useLoaderData();
+  const [productList, setProductList] = useState([]);
+  const [wishList, setWishList] = useState([]);
+  const [totalCost, setTotalCost] = useState(0);
 
+  const data = useLoaderData();
 
   useEffect(() => {
     const getProductLS = getProductStoreCard();
-    const storeProductInt = getProductLS.map((id => parseInt(id)));
-    const filterBYProduct = data.filter((item) =>
-      storeProductInt.includes(product.product_id)
+    const storeProductInt = getProductLS.map((id) => parseInt(id));
+    const filterByProduct = data.filter((item) =>
+      storeProductInt.includes(item.product_id)
     );
-    setProduct(filterBYProduct);
-  }, []);
+    setProductList(filterByProduct);
 
-
-  // useEffect(() => {
-  //   const getWisList = get
-  // }, [])
+    const cost = filterByProduct.reduce((acc, item) => acc + item.price, 0);
+    setTotalCost(cost);
+  }, [data]);
 
   const sortByPrice = () => {
+    const sortedProducts = [...productList].sort((a, b) => a.price - b.price);
+    setProductList(sortedProducts);
+  };
 
-  }
+  const handlePurchase = () => {
+    alert("Thank you for your purchase!");
+    setProductList([]);
+    setTotalCost(0);
+  };
 
-  const  handlePurchase = () => {
+  const handleDelete = (id) => {
+    const updatedProductList = productList.filter(
+      (product) => product.product_id !== id
+    );
+    setProductList(updatedProductList);
 
-  }
+    const updatedWishList = wishList.filter(
+      (product) => product.product_id !== id
+    );
+    setWishList(updatedWishList);
+
+    const cost = updatedProductList.reduce((acc, item) => acc + item.price, 0);
+    setTotalCost(cost);
+  };
+
   return (
     <div className="py-8">
       <div className="text-center bg-[#9538E2]">
@@ -46,20 +62,18 @@ const Dashboard = () => {
 
         <button
           onClick={() => setActiveTab("cart")}
-          className={`mr-4 btn btn-outline font-medium text-lg rounded-full px-16 mb-10
-            ${
-              activeTab === "cart" ? "text-purple-700 bg-white" : "text-white"
-            }`}
+          className={`mr-4 btn btn-outline font-medium text-lg rounded-full px-16 mb-10 ${
+            activeTab === "cart" ? "text-purple-700 bg-white" : "text-white"
+          }`}
         >
           Cart
         </button>
 
         <button
           onClick={() => setActiveTab("wishlist")}
-          className={`text-white btn btn-outline font-medium text-lg rounded-full px-16 mb-10 
-                    ${
-                      activeTab === "wishlist" ? "text-purple-900 bg-white" : ""
-                    }`}
+          className={`btn btn-outline font-medium text-lg rounded-full px-16 mb-10 ${
+            activeTab === "wishlist" ? "text-purple-900 bg-white" : "text-white"
+          }`}
         >
           Wishlist
         </button>
@@ -91,7 +105,7 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <div className="">
+            <div className="grid md:grid-cols-2 gap-4 mt-8">
               {productList.map((product) => (
                 <Cart
                   key={product.product_id}
@@ -104,16 +118,14 @@ const Dashboard = () => {
         )}
 
         {activeTab === "wishlist" && (
-          <div>
-            <div className="">
-              {wishList.map((product) => (
-                <WishList
-                  key={product.product_id}
-                  product={product}
-                  handleDelete={handleDelete}
-                />
-              ))}
-            </div>
+          <div className="grid md:grid-cols-2 gap-4 mt-8">
+            {wishList.map((product) => (
+              <WishList
+                key={product.product_id}
+                product={product}
+                handleDelete={handleDelete}
+              />
+            ))}
           </div>
         )}
       </div>
